@@ -4,210 +4,270 @@
 <meta charset="UTF-8">
 <title>Shekinah's @18 RSVP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* Glitter Animation */
-@keyframes glitterMove {
-  0% { background-position: 0 0; opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { background-position: 200% 200%; opacity: 0.6; }
-}
-
+/* Body & Background */
 body {
-  font-family:'Montserrat', sans-serif;
-  background:url('https://i.imgur.com/AUfRfam.jpeg') no-repeat center center fixed;
-  background-size:cover;
-  margin:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  position:relative;
+  font-family: 'Montserrat', sans-serif;
+  background: url('https://i.imgur.com/AUfRfam.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
   overflow: hidden;
 }
 
-/* Glitter overlay */
+body::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+/* Glitter effect */
+@keyframes glitterMove {
+  0% {background-position: 0 0; opacity: 0.6;}
+  50% {opacity: 1;}
+  100% {background-position: 200% 200%; opacity: 0.6;}
+}
+
 .glitter {
-  position:absolute;
+  position: absolute;
   top:0; left:0;
   width:100%;
   height:100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
   background-size: 200% 200%;
-  animation: glitterMove 9s linear infinite;
+  animation: glitterMove 8s linear infinite;
   pointer-events: none;
-  z-index:0;
+  z-index: 0;
 }
 
+/* Bubble Container */
 .card {
-  position:relative;
-  z-index:1;
-  background: rgba(255,255,255,0.85);
-  max-width:380px;
-  width:85%;
-  padding:30px;
-  border-radius: 25px;
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 30px;
+  padding: 25px 20px;
+  max-width: 380px;
+  width: 85%;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  text-align:center;
-  color:#4b0000; /* darker red */
-  border: 2px solid gold; /* subtle gold lining */
-  transition: all 0.4s ease;
-}
-
-h1 {
-  font-family:'Great Vibes', cursive;
-  font-size:2.8rem;
-  color:#5a0000; /* darker red */
-  margin-bottom:10px;
-}
-
-p {
-  font-size:1rem;
-  margin-bottom:15px;
-}
-
-.input-container {
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.input-container input {
-  flex:1;
-}
-
-input, select, button {
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #5a0000; /* darker red */
-  font-size:15px;
-}
-
-input:focus, select:focus {
-  outline:none;
-  border:2px solid #b8860b; /* gold highlight */
-  box-shadow: 0 0 8px rgba(184,134,11,0.5);
-}
-
-button {
-  background:#5a0000; /* darker red */
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+  text-align: center;
+  color: #4b0000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 2px solid rgba(255,215,0,0.4); /* subtle gold border */
   transition: all 0.3s ease;
 }
 
-button:hover {
-  background:#7a0000;
-  box-shadow:0 5px 15px rgba(184,134,11,0.4); /* gold shimmer on hover */
+/* Header */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #5a0000; /* darker red */
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 4px rgba(184,134,11,0.6); /* goldish shimmer */
 }
 
-.hidden { display:none; }
-#message { font-weight:600; margin:10px 0; font-size:1rem; }
-#thankYouCard { display:none; background:#fff8f8; padding:20px; border-radius:15px; margin-top:15px; color:#5a0000; font-size:1.2rem; font-weight:600; opacity:0; transform:translateY(20px); transition:all 0.5s ease; }
-#thankYouCard.show { display:block; opacity:1; transform:translateY(0); }
+/* Paragraph */
+p {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  text-shadow: 1px 1px 3px #4b0000;
+}
 
-#membersList div { margin-bottom:12px; text-align:left; }
+/* Input & Button Styles */
+input, select, button {
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 20px;
+  border: 1px solid #5a0000;
+  background: rgba(255,255,255,0.85);
+}
 
-select { width:100%; }
+input:focus, select:focus {
+  outline: none;
+  border: 2px solid #b8860b; /* gold highlight */
+  box-shadow: 0 0 8px rgba(184,134,11,0.4);
+}
 
-.attendance-label { display:block; margin-bottom:5px; font-weight:600; font-size:1rem; color:#5a0000; }
+button {
+  background: #5a0000;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
 
-@media screen and (max-width:480px) {
-  .card { max-width:300px; padding:20px; }
-  h1 { font-size:2rem; }
-  input, select, button { padding:10px; font-size:14px; }
-  #thankYouCard { font-size:1rem; padding:15px; }
-  .input-container { flex-direction:column; }
-  .input-container button { width:100%; }
+button:hover {
+  background: #7a0000;
+  box-shadow: 0 5px 12px rgba(184,134,11,0.4);
+}
+
+/* Input container */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-container button { width: 100%; }
+
+/* Members List */
+#membersList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.member span {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #4b0000;
+}
+
+.member select {
+  min-width: 90px;
+  padding: 5px 8px;
+  font-size: 1rem;
+  border-radius: 15px;
+  border: 1px solid #5a0000;
+  background: rgba(255,255,255,0.9);
+}
+
+/* Message & Thank you */
+#message {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  text-shadow: 1px 1px 3px #800000;
+  min-height: 20px;
+}
+
+#thanks {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffebeb;
+  text-shadow: 1px 1px 4px #800000;
+  margin-top: 5px;
+}
+
+/* Hidden class */
+.hidden { display: none; }
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .card { padding: 20px; border-radius: 25px; }
+  h1 { font-size: 2.2rem; }
+  input, select, button { font-size: 14px; padding: 8px 10px; }
+  .member select { min-width: 80px; }
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="glitter"></div>
 
 <div class="card">
   <h1>Shekinah's @18</h1>
-  <p>Please enter your full name to RSVP</p>
+  <p>Please enter your full name</p>
 
   <div class="input-container">
-    <input type="text" id="guestName" placeholder="Full Name">
-    <button type="button" onclick="searchGuest()">Search</button>
+    <input id="guestName" placeholder="Full Name">
+    <button type="button" onclick="searchGuest()">Check</button>
   </div>
 
   <p id="message"></p>
 
   <!-- RSVP Form -->
   <form id="rsvpForm" class="hidden" method="POST" target="hidden_iframe">
+    <p>Will you attend?</p>
     <div id="membersList"></div>
+    <input type="hidden" name="payload" id="payload">
     <button type="submit">Confirm Attendance</button>
   </form>
 
-  <div id="thankYouCard"></div>
+  <p id="thanks" class="hidden">RSVP Saved 💖</p>
 </div>
 
-<!-- Hidden iframe for POST -->
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <script>
-const SCRIPT_URL = "AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg"; // Replace with your Apps Script URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec"; // replace with your Apps Script URL
 
 function searchGuest() {
   const name = document.getElementById("guestName").value.trim();
-  const message = document.getElementById("message");
+  const msg = document.getElementById("message");
+  const list = document.getElementById("membersList");
   const form = document.getElementById("rsvpForm");
-  const membersList = document.getElementById("membersList");
-  const thankYouCard = document.getElementById("thankYouCard");
 
-  message.innerText = "";
-  membersList.innerHTML = "";
+  msg.innerText = "";
+  list.innerHTML = "";
   form.classList.add("hidden");
-  thankYouCard.classList.remove("show");
+  document.getElementById("thanks").classList.add("hidden");
 
-  if (!name) { message.innerText = "Please enter your name."; return; }
+  if (!name) { msg.innerText = "Please enter your name."; return; }
 
   fetch(SCRIPT_URL + "?name=" + encodeURIComponent(name))
-    .then(res => res.json())
-    .then(data => {
-      if (!data.found || !data.members || data.members.length === 0) {
-        message.innerText = "Name not on the guest list.";
+    .then(r => r.json())
+    .then(d => {
+      if (!d.found) {
+        msg.innerText = "Name not on the guest list.";
         return;
       }
 
-      message.innerText = "Will you attend?";
       form.classList.remove("hidden");
-
-      data.members.forEach(member => {
+      d.members.forEach(m => {
         const div = document.createElement("div");
+        div.className = "member";
         div.innerHTML = `
-          <span class="attendance-label">${member.name}</span>
-          <input type="hidden" name="row" value="${member.row}">
-          <select name="attendance" required>
+          <span>${m.name}</span>
+          <select data-row="${m.row}">
             <option value="">--Select--</option>
-            <option value="Yes" ${member.attendance === "Yes" ? "selected" : ""}>Yes</option>
-            <option value="No" ${member.attendance === "No" ? "selected" : ""}>No</option>
+            <option value="Yes" ${m.attendance==="Yes"?"selected":""}>Yes</option>
+            <option value="No" ${m.attendance==="No"?"selected":""}>No</option>
           </select>
         `;
-        membersList.appendChild(div);
+        list.appendChild(div);
       });
     })
-    .catch(() => { message.innerText = "Error connecting to server."; });
+    .catch(()=> { msg.innerText = "Error connecting to server."; });
 }
 
-// Show thank-you after submission
-document.getElementById("rsvpForm").addEventListener("submit", function() {
-  this.classList.add("hidden");
+document.getElementById("rsvpForm").addEventListener("submit", () => {
+  const payload = [];
+  document.querySelectorAll("#membersList select").forEach(s => {
+    payload.push({ row: s.dataset.row, attendance: s.value });
+  });
+  document.getElementById("payload").value = JSON.stringify(payload);
+  document.getElementById("rsvpForm").classList.add("hidden");
   document.getElementById("message").innerText = "";
-  const thankYouCard = document.getElementById("thankYouCard");
-  thankYouCard.innerText = "RSVP saved! Thank you 💖";
-  thankYouCard.style.display = "block";
-  setTimeout(()=>thankYouCard.classList.add("show"), 50);
+  document.getElementById("thanks").classList.remove("hidden");
 });
 </script>
-
 </body>
 </html>
