@@ -26,15 +26,15 @@ body::before {
   position: absolute;
   top:0; left:0;
   width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.55);
   z-index: 0;
 }
 
-/* Glitter effect */
+/* Glitter Animation */
 @keyframes glitterMove {
-  0% {background-position: 0 0; opacity: 0.6;}
+  0% {background-position: 0 0; opacity: 0.5;}
   50% {opacity: 1;}
-  100% {background-position: 200% 200%; opacity: 0.6;}
+  100% {background-position: 200% 200%; opacity: 0.5;}
 }
 
 .glitter {
@@ -57,7 +57,7 @@ body::before {
   backdrop-filter: blur(8px);
   border-radius: 30px;
   padding: 25px 20px;
-  max-width: 380px;
+  max-width: 360px;
   width: 85%;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   text-align: center;
@@ -65,20 +65,20 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border: 2px solid rgba(255,215,0,0.4); /* subtle gold border */
+  border: 2px solid rgba(255,215,0,0.35); /* subtle gold border */
   transition: all 0.3s ease;
 }
 
 /* Header */
 h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   color: #5a0000; /* darker red */
   margin-bottom: 8px;
-  text-shadow: 1px 1px 4px rgba(184,134,11,0.6); /* goldish shimmer */
+  text-shadow: 1px 1px 4px rgba(184,134,11,0.6); /* gold hint */
 }
 
-/* Paragraph */
+/* Paragraphs */
 p {
   margin: 0;
   font-size: 1rem;
@@ -97,7 +97,7 @@ input, select, button {
 
 input:focus, select:focus {
   outline: none;
-  border: 2px solid #b8860b; /* gold highlight */
+  border: 2px solid #b8860b;
   box-shadow: 0 0 8px rgba(184,134,11,0.4);
 }
 
@@ -107,6 +107,7 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
+  border-radius: 20px;
 }
 
 button:hover {
@@ -159,7 +160,7 @@ button:hover {
   background: rgba(255,255,255,0.9);
 }
 
-/* Message & Thank you */
+/* Message & Thank You */
 #message {
   font-weight: 600;
   font-size: 1rem;
@@ -176,7 +177,7 @@ button:hover {
   margin-top: 5px;
 }
 
-/* Hidden class */
+/* Hidden */
 .hidden { display: none; }
 
 /* Responsive */
@@ -204,7 +205,10 @@ button:hover {
   <p id="message"></p>
 
   <!-- RSVP Form -->
-  <form id="rsvpForm" class="hidden" method="POST" target="hidden_iframe">
+  <form id="rsvpForm" class="hidden" method="POST"
+        action="https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec"
+        target="hidden_iframe">
+
     <p>Will you attend?</p>
     <div id="membersList"></div>
     <input type="hidden" name="payload" id="payload">
@@ -217,7 +221,7 @@ button:hover {
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec"; // replace with your Apps Script URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec";
 
 function searchGuest() {
   const name = document.getElementById("guestName").value.trim();
