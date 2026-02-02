@@ -26,15 +26,14 @@ body::before {
   position: absolute;
   top:0; left:0;
   width:100%; height:100%;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.5);
   z-index: 0;
 }
 
-/* Glitter Animation */
+/* Glitter animation */
 @keyframes glitterMove {
-  0% {background-position: 0 0; opacity: 0.5;}
-  50% {opacity: 1;}
-  100% {background-position: 200% 200%; opacity: 0.5;}
+  0% {background-position: 0 0;}
+  100% {background-position: 200% 200%;}
 }
 
 .glitter {
@@ -42,9 +41,9 @@ body::before {
   top:0; left:0;
   width:100%;
   height:100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%); /* golden glitter */
   background-size: 200% 200%;
-  animation: glitterMove 8s linear infinite;
+  animation: glitterMove 12s linear infinite; /* a bit faster glitter */
   pointer-events: none;
   z-index: 0;
 }
@@ -53,37 +52,37 @@ body::before {
 .card {
   position: relative;
   z-index: 1;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.25); /* low opacity bubble */
+  backdrop-filter: blur(6px);
   border-radius: 30px;
-  padding: 25px 20px;
-  max-width: 360px;
+  padding: 30px 25px;
+  max-width: 380px;
   width: 85%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   text-align: center;
   color: #4b0000;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border: 2px solid rgba(255,215,0,0.35); /* subtle gold border */
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: all 0.2s ease;
 }
 
 /* Header */
 h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.6rem;
-  color: #5a0000; /* darker red */
-  margin-bottom: 8px;
-  text-shadow: 1px 1px 4px rgba(184,134,11,0.6); /* gold hint */
+  font-size: 2.8rem;
+  color: #ffdfdf;
+  text-shadow: 1px 1px 4px #5a0000; /* darker red shadow */
+  margin: 0 0 10px 0;
 }
 
-/* Paragraphs */
+/* Paragraph */
 p {
   margin: 0;
   font-size: 1rem;
   color: #fff;
-  text-shadow: 1px 1px 3px #4b0000;
+  text-shadow: 1px 1px 3px #5a0000;
 }
 
 /* Input & Button Styles */
@@ -91,18 +90,18 @@ input, select, button {
   padding: 10px 12px;
   font-size: 15px;
   border-radius: 20px;
-  border: 1px solid #5a0000;
+  border: 1px solid #5a0000; /* darker red border */
   background: rgba(255,255,255,0.85);
 }
 
 input:focus, select:focus {
   outline: none;
-  border: 2px solid #b8860b;
-  box-shadow: 0 0 8px rgba(184,134,11,0.4);
+  border: 2px solid #660000; /* darker red focus */
+  box-shadow: 0 0 8px rgba(102,0,0,0.3);
 }
 
 button {
-  background: #5a0000;
+  background: #5a0000; /* darker red */
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -112,7 +111,7 @@ button {
 
 button:hover {
   background: #7a0000;
-  box-shadow: 0 5px 12px rgba(184,134,11,0.4);
+  box-shadow: 0 5px 12px rgba(122,0,0,0.4);
 }
 
 /* Input container */
@@ -156,28 +155,28 @@ button:hover {
   padding: 5px 8px;
   font-size: 1rem;
   border-radius: 15px;
-  border: 1px solid #5a0000;
+  border: 1px solid #5a0000; /* darker red */
   background: rgba(255,255,255,0.9);
 }
 
-/* Message & Thank You */
+/* Message & Thank you */
 #message {
   font-weight: 600;
   font-size: 1rem;
   color: #fff;
-  text-shadow: 1px 1px 3px #800000;
+  text-shadow: 1px 1px 3px #5a0000;
   min-height: 20px;
 }
 
 #thanks {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #ffebeb;
-  text-shadow: 1px 1px 4px #800000;
+  color: #ffdfdf;
+  text-shadow: 1px 1px 4px #5a0000;
   margin-top: 5px;
 }
 
-/* Hidden */
+/* Hidden class */
 .hidden { display: none; }
 
 /* Responsive */
@@ -206,10 +205,9 @@ button:hover {
 
   <!-- RSVP Form -->
   <form id="rsvpForm" class="hidden" method="POST"
-        action="https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec"
+        action="https://script.google.com/macros/s/AKfycbwaTa702niJIZ29D3OGcrztgzb5gzgi76VnXPySm2OQPDMJak2j3lQgmOuqaeUXNNUyuw/exec"
         target="hidden_iframe">
 
-    <p>Will you attend?</p>
     <div id="membersList"></div>
     <input type="hidden" name="payload" id="payload">
     <button type="submit">Confirm Attendance</button>
@@ -221,7 +219,7 @@ button:hover {
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaTa702niJIZ29D3OGcrztgzb5gzgi76VnXPySm2OQPDMJak2j3lQgmOuqaeUXNNUyuw/exec";
 
 function searchGuest() {
   const name = document.getElementById("guestName").value.trim();
