@@ -43,7 +43,7 @@ body::before {
   height:100%;
   background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%); /* golden glitter */
   background-size: 200% 200%;
-  animation: glitterMove 8s linear infinite; /* a bit faster glitter */
+  animation: glitterMove 7s linear infinite; /* a bit faster glitter */
   pointer-events: none;
   z-index: 0;
 }
@@ -194,10 +194,10 @@ button:hover {
 
 <div class="card">
   <h1>Shekinah's @18</h1>
-  <p>Please enter your full name</p>
+  <p>Kindly confirm your attendance</p>
 
   <div class="input-container">
-    <input id="guestName" placeholder="Full Name">
+    <input id="guestName" placeholder="Enter Your Full Name">
     <button type="button" onclick="searchGuest()">Check</button>
   </div>
 
@@ -213,7 +213,7 @@ button:hover {
     <button type="submit">Confirm Attendance</button>
   </form>
 
-  <p id="thanks" class="hidden">RSVP Saved 💖</p>
+  <p id="thanks" class="hidden">Thank you! Your RSVP is confirmed</p>
 </div>
 
 <iframe name="hidden_iframe" style="display:none;"></iframe>
