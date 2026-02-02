@@ -18,6 +18,7 @@ body {
   align-items: center;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 body::before {
@@ -29,31 +30,50 @@ body::before {
   z-index: 0;
 }
 
+/* Glitter animation */
+@keyframes glitterMove {
+  0% {background-position: 0 0;}
+  100% {background-position: 200% 200%;}
+}
+
+.glitter {
+  position: absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  background-size: 200% 200%;
+  animation: glitterMove 15s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Bubble Container */
 .card {
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.2); /* low opacity bubble */
-  backdrop-filter: blur(10px); /* frosted glass effect */
-  border-radius: 40px;
-  padding: 40px 30px;
-  max-width: 420px;
-  width: 90%;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.25); /* low opacity bubble */
+  backdrop-filter: blur(6px); /* subtle blur */
+  border-radius: 30px;
+  padding: 30px 25px;
+  max-width: 380px;
+  width: 85%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   text-align: center;
   color: #4b0000;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   border: 1px solid rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 /* Header */
 h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: #800000;
+  font-size: 2.8rem;
+  color: #ffebeb;
+  text-shadow: 1px 1px 4px #800000;
   margin: 0 0 10px 0;
 }
 
@@ -61,22 +81,23 @@ h1 {
 p {
   margin: 0;
   font-size: 1rem;
-  color: #4b0000;
+  color: #fff;
+  text-shadow: 1px 1px 3px #4b0000;
 }
 
 /* Input & Button Styles */
 input, select, button {
-  padding: 12px 15px;
-  font-size: 16px;
-  border-radius: 25px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 20px;
   border: 1px solid #800000;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
 }
 
 input:focus, select:focus {
   outline: none;
   border: 2px solid #a00000;
-  box-shadow: 0 0 10px rgba(160,0,0,0.3);
+  box-shadow: 0 0 8px rgba(160,0,0,0.3);
 }
 
 button {
@@ -84,43 +105,41 @@ button {
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 25px;
+  transition: all 0.25s ease;
+  border-radius: 20px;
 }
 
 button:hover {
   background: #a00000;
-  box-shadow: 0 5px 15px rgba(160,0,0,0.4);
+  box-shadow: 0 5px 12px rgba(160,0,0,0.4);
 }
 
 /* Input container */
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.input-container button {
-  width: 100%;
-}
+.input-container button { width: 100%; }
 
 /* Members List */
 #membersList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .member {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .member span {
@@ -128,30 +147,33 @@ button:hover {
   text-align: left;
   font-weight: 500;
   font-size: 1rem;
+  color: #4b0000;
 }
 
 .member select {
-  min-width: 100px;
-  padding: 6px 10px;
+  min-width: 90px;
+  padding: 5px 8px;
   font-size: 1rem;
-  border-radius: 20px;
+  border-radius: 15px;
   border: 1px solid #800000;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.9);
 }
 
 /* Message & Thank you */
 #message {
   font-weight: 600;
   font-size: 1rem;
-  color: #800000;
+  color: #fff;
+  text-shadow: 1px 1px 3px #800000;
   min-height: 20px;
 }
 
 #thanks {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #800000;
-  margin-top: 10px;
+  color: #ffebeb;
+  text-shadow: 1px 1px 4px #800000;
+  margin-top: 5px;
 }
 
 /* Hidden class */
@@ -159,15 +181,17 @@ button:hover {
 
 /* Responsive */
 @media screen and (max-width: 480px) {
-  .card { padding: 25px; border-radius: 30px; }
+  .card { padding: 20px; border-radius: 25px; }
   h1 { font-size: 2.2rem; }
-  input, select, button { font-size: 15px; padding: 10px 12px; }
-  .member select { min-width: 90px; }
+  input, select, button { font-size: 14px; padding: 8px 10px; }
+  .member select { min-width: 80px; }
 }
 </style>
 </head>
 
 <body>
+<div class="glitter"></div>
+
 <div class="card">
   <h1>Shekinah's @18</h1>
   <p>Please enter your full name</p>
