@@ -7,29 +7,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* Body & Background */
 body {
-  font-family:'Montserrat', sans-serif;
-  background:url('https://i.imgur.com/AUfRfam.jpeg') no-repeat center/cover fixed;
-  margin:0; min-height:100vh;
-  display:flex; align-items:center; justify-content:center;
+  font-family: 'Montserrat', sans-serif;
+  background: url('https://i.imgur.com/AUfRfam.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
+
+/* Overlay to soften background */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+/* Bubble Container */
 .card {
-  background:#fff; padding:30px;
-  border-radius:20px; width:90%; max-width:420px;
-  text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.3);
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.95);
+  border-radius: 40px;
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  text-align: center;
+  color: #4b0000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-h1 { font-family:'Great Vibes', cursive; color:#800000; font-size:3rem; }
+
+/* Header */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #800000;
+  margin: 0;
+}
+
+/* Paragraph */
+p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Input & Button Styles */
 input, select, button {
-  width:100%; padding:12px;
-  margin:8px 0; border-radius:10px;
-  border:1px solid #800000; font-size:15px;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 1px solid #800000;
 }
+
+input:focus, select:focus {
+  outline: none;
+  border: 2px solid #a00000;
+  box-shadow: 0 0 10px rgba(160,0,0,0.3);
+}
+
 button {
-  background:#800000; color:#fff;
-  font-weight:600; cursor:pointer;
+  background: #800000;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
-.hidden { display:none; }
-.member { margin-bottom:10px; text-align:left; }
+
+button:hover {
+  background: #a00000;
+  box-shadow: 0 5px 15px rgba(160,0,0,0.4);
+}
+
+/* Input container */
+.input-container {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.input-container button {
+  width: 100%;
+}
+
+/* Members List */
+#membersList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 25px;
+  background: rgba(128, 0, 0, 0.05);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.member select {
+  width: 100px;
+}
+
+/* Message & Thank you */
+#message {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #800000;
+  min-height: 20px;
+}
+
+#thanks {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #800000;
+}
+
+/* Hidden class */
+.hidden { display: none; }
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .card { padding: 25px; border-radius: 30px; }
+  h1 { font-size: 2.2rem; }
+  input, select, button { font-size: 15px; padding: 10px 12px; }
+  .member select { width: 90px; }
+}
 </style>
 </head>
 
@@ -38,11 +152,14 @@ button {
   <h1>Shekinah's @18</h1>
   <p>Enter your full name</p>
 
-  <input id="guestName" placeholder="Full Name">
-  <button onclick="searchGuest()">Check</button>
+  <div class="input-container">
+    <input id="guestName" placeholder="Full Name">
+    <button type="button" onclick="searchGuest()">Check</button>
+  </div>
 
   <p id="message"></p>
 
+  <!-- RSVP Form -->
   <form id="rsvpForm" class="hidden" method="POST"
         action="https://script.google.com/macros/s/AKfycbyBj5wxa3MtDL58BA5WSC8rMOkrAqawPk7aYggoi9Y0bKTarQk8tZ_nLpcvxd_jQ_xfKg/exec"
         target="hidden_iframe">
@@ -66,9 +183,12 @@ function searchGuest() {
   const list = document.getElementById("membersList");
   const form = document.getElementById("rsvpForm");
 
+  msg.innerText = "";
   list.innerHTML = "";
   form.classList.add("hidden");
-  msg.innerText = "";
+  document.getElementById("thanks").classList.add("hidden");
+
+  if (!name) { msg.innerText = "Please enter your name."; return; }
 
   fetch(SCRIPT_URL + "?name=" + encodeURIComponent(name))
     .then(r => r.json())
@@ -83,16 +203,17 @@ function searchGuest() {
         const div = document.createElement("div");
         div.className = "member";
         div.innerHTML = `
-          <strong>${m.name}</strong>
+          <span>${m.name}</span>
           <select data-row="${m.row}">
             <option value="">--Select--</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="Yes" ${m.attendance==="Yes"?"selected":""}>Yes</option>
+            <option value="No" ${m.attendance==="No"?"selected":""}>No</option>
           </select>
         `;
         list.appendChild(div);
       });
-    });
+    })
+    .catch(()=> { msg.innerText = "Error connecting to server."; });
 }
 
 document.getElementById("rsvpForm").addEventListener("submit", () => {
@@ -101,6 +222,8 @@ document.getElementById("rsvpForm").addEventListener("submit", () => {
     payload.push({ row: s.dataset.row, attendance: s.value });
   });
   document.getElementById("payload").value = JSON.stringify(payload);
+  document.getElementById("rsvpForm").classList.add("hidden");
+  document.getElementById("message").innerText = "";
   document.getElementById("thanks").classList.remove("hidden");
 });
 </script>
