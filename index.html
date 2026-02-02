@@ -17,14 +17,14 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  position: relative;
 }
 
-/* Overlay to soften background */
 body::before {
   content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top:0; left:0;
+  width:100%; height:100%;
   background: rgba(0,0,0,0.5);
   z-index: 0;
 }
@@ -33,17 +33,20 @@ body::before {
 .card {
   position: relative;
   z-index: 1;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.2); /* low opacity bubble */
+  backdrop-filter: blur(10px); /* frosted glass effect */
   border-radius: 40px;
   padding: 40px 30px;
-  max-width: 400px;
+  max-width: 420px;
   width: 90%;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
   text-align: center;
   color: #4b0000;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
 }
 
 /* Header */
@@ -51,21 +54,23 @@ h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 3rem;
   color: #800000;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 
 /* Paragraph */
 p {
   margin: 0;
   font-size: 1rem;
+  color: #4b0000;
 }
 
 /* Input & Button Styles */
 input, select, button {
   padding: 12px 15px;
   font-size: 16px;
-  border-radius: 20px;
+  border-radius: 25px;
   border: 1px solid #800000;
+  background: rgba(255,255,255,0.8);
 }
 
 input:focus, select:focus {
@@ -80,6 +85,7 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 25px;
 }
 
 button:hover {
@@ -90,8 +96,8 @@ button:hover {
 /* Input container */
 .input-container {
   display: flex;
-  gap: 10px;
   flex-direction: column;
+  gap: 12px;
 }
 
 .input-container button {
@@ -110,14 +116,27 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border-radius: 25px;
-  background: rgba(128, 0, 0, 0.05);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.member span {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .member select {
-  width: 100px;
+  min-width: 100px;
+  padding: 6px 10px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 1px solid #800000;
+  background: rgba(255,255,255,0.85);
 }
 
 /* Message & Thank you */
@@ -132,6 +151,7 @@ button:hover {
   font-weight: 600;
   font-size: 1.1rem;
   color: #800000;
+  margin-top: 10px;
 }
 
 /* Hidden class */
@@ -142,7 +162,7 @@ button:hover {
   .card { padding: 25px; border-radius: 30px; }
   h1 { font-size: 2.2rem; }
   input, select, button { font-size: 15px; padding: 10px 12px; }
-  .member select { width: 90px; }
+  .member select { min-width: 90px; }
 }
 </style>
 </head>
@@ -150,7 +170,7 @@ button:hover {
 <body>
 <div class="card">
   <h1>Shekinah's @18</h1>
-  <p>Enter your full name</p>
+  <p>Please enter your full name</p>
 
   <div class="input-container">
     <input id="guestName" placeholder="Full Name">
